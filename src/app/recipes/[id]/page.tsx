@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import RecipeDetail from "@/app/components/recipeDetail";
+import { getRecipeDetail } from "@/app/lib/spoonacular";
 import { useEffect, useState } from "react";
-
-const apiKey = process.env.NEXT_PUBLIC_APIKEY;
 
 type RecipeDetailPageProps = {
   params: {
@@ -18,52 +17,24 @@ type RecipeDetailType = {
   spoonacularSourceUrl: string;
 };
 
-const RecipeDetail = ({ params }: RecipeDetailPageProps) => {
+const DetailPage = ({ params }: RecipeDetailPageProps) => {
   const [recipeDetail, setRecipeDetail] = useState<
     RecipeDetailType | undefined
   >();
 
   useEffect(() => {
-    const getRecipeDetail = async () => {
+    const fetchApi = async () => {
       try {
-        const response = await fetch(
-          //データベースに保存されている材料の中でチェックされたものをエンドポイントに設定する。
-          `https://api.spoonacular.com/recipes/${params.id}/information?apiKey=${apiKey}`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const jsonData = await response.json();
-        setRecipeDetail(jsonData);
-        console.log(jsonData);
+        const response = await getRecipeDetail(params.id);
+        setRecipeDetail(response);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-    getRecipeDetail();
+    fetchApi();
   }, [params.id]);
 
-  return (
-    <div>
-      {recipeDetail ? (
-        <div>
-          <h1>{recipeDetail.title}</h1>
-          <Image
-            src={recipeDetail.image}
-            width={100}
-            height={50}
-            alt="recipe image"
-          />
-          <p>Ready In Minutes: {recipeDetail.readyInMinutes}</p>
-          <a href={recipeDetail.spoonacularSourceUrl}>
-            More Detail: {recipeDetail.spoonacularSourceUrl}
-          </a>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  );
+  return <RecipeDetail recipeDetail={recipeDetail} />;
 };
 
-export default RecipeDetail;
+export default DetailPage;
