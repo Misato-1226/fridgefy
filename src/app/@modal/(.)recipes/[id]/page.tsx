@@ -4,19 +4,13 @@ import { Modal } from "./modal";
 
 import RecipeDetail from "@/app/components/recipeDetail";
 import { getRecipeDetail } from "@/app/lib/spoonacular";
+import { RecipeDetailType } from "@/app/lib/types";
 import { useEffect, useState } from "react";
 
 type RecipeDetailPageProps = {
   params: {
     id: string;
   };
-};
-
-type RecipeDetailType = {
-  title: string;
-  image: string;
-  readyInMinutes: number;
-  spoonacularSourceUrl: string;
 };
 
 const DetailModal = ({ params }: RecipeDetailPageProps) => {

@@ -1,8 +1,8 @@
 "use client";
 
-import Form from "../components/recipeForm";
-import RecipeList from "../components/recipeList";
-import { RecipeResultProvider } from "../contexts/RecipeResult";
+import Form from "@/app/components/recipeForm";
+import RecipeList from "@/app/components/recipeList";
+import { RecipeResultProvider } from "@/app/contexts/RecipeResult";
 
 const Recipes = () => {
   return (

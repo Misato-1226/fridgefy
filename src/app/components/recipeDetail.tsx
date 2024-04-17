@@ -1,11 +1,5 @@
 import Image from "next/image";
-
-type RecipeDetailType = {
-  title: string;
-  image: string;
-  readyInMinutes: number;
-  spoonacularSourceUrl: string;
-};
+import { RecipeDetailType } from "../lib/types";
 
 const RecipeDetail = ({
   recipeDetail,

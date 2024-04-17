@@ -2,7 +2,7 @@
 import { RecipeResultContext } from "@/app/contexts/RecipeResult";
 import { ChangeEvent, MouseEvent, useContext, useState } from "react";
 import IngredientCheckbox from "./checkbox";
-import { getRecipes } from "../lib/spoonacular";
+import { getRecipes } from "@/lib/spoonacular";
 
 const Form = () => {
   const [query, setQuery] = useState("");
