@@ -9,6 +9,7 @@ export const authenticateSignIn = async () => {
 };
 
 export const authenticateSignOut = async () => {
-  await signOut();
-  redirect("/");
+  await signOut({
+    redirectTo: "/",
+  });
 };

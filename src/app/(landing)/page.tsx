@@ -1,6 +1,4 @@
-import { authenticateSignOut, authenticateSignIn } from "@/action/authenticate";
-import Image from "next/image";
-import Link from "next/link";
+import { authenticateSignIn } from "@/action/authenticate";
 
 export default function Home() {
   return (

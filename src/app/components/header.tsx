@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { authenticateSignOut, authenticateSignIn } from "@/action/authenticate";
+import { authenticateSignOut } from "@/action/authenticate";
 
 const Header = () => {
   return (
@@ -16,7 +16,10 @@ const Header = () => {
         </Link>
       </div>
       <form action={authenticateSignOut}>
-        <button className="py-2.5 px-6 rounded-lg text-sm font-medium bg-lime-300 text-teal-800">
+        <button
+          type="submit"
+          className="py-2.5 px-6 rounded-lg text-sm font-medium bg-lime-300 text-teal-800"
+        >
           Logout
         </button>
       </form>
