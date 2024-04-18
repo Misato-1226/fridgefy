@@ -43,7 +43,12 @@ const Form = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button onClick={getRecipe}>search</button>
+        <button
+          onClick={getRecipe}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          search
+        </button>
         <p>Search by ingredients</p>
         <div className="grid grid-cols-4">
           {arr.map((ingredient, index) => (
