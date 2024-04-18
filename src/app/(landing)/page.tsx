@@ -1,7 +1,4 @@
-import {
-  authenticateSignOut,
-  authenticateSignIn,
-} from "@/action/authentificate";
+import { authenticateSignOut, authenticateSignIn } from "@/action/authenticate";
 import Image from "next/image";
 import Link from "next/link";
 
