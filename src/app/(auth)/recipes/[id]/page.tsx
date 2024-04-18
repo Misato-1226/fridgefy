@@ -1,8 +1,8 @@
 "use client";
 
 import RecipeDetail from "@/app/components/recipeDetail";
-import { getRecipeDetail } from "@/app/lib/spoonacular";
-import { RecipeDetailType } from "@/app/lib/types";
+import { getRecipeDetail } from "@/lib/spoonacular";
+import { RecipeDetailType } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 type RecipeDetailPageProps = {

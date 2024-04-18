@@ -7,17 +7,15 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <>
-      <Link
-        href="#"
-        className="border-b-4 border-b-blue-700 pb-2 text-2xl font-bold text-gray-900"
-      >
-        Fridgefy
-      </Link>
-
-      <div className="my-auto flex flex-col justify-center px-6 pt-8 sm:px-24 md:justify-start md:px-8 md:pt-0 lg:px-12">
-        <p className="text-center text-3xl font-bold">Welcome</p>
-        <p className="mt-2 text-center">Login to access your account.</p>
+    <div
+      className="bg-cover bg-center bg-no-repeat flex justify-center items-center h-screen"
+      id="background-image"
+    >
+      <div className="flex flex-col items-center">
+        <p className="text-center text-5xl font-bold text-white">Fridgefy</p>
+        <p className="my-6 text-lg text-center text-white">
+          sign in to your account to access all the delicious recipes
+        </p>
         <form
           action={authenticateSignIn}
           className="flex flex-col pt-3 md:pt-8"
@@ -30,6 +28,6 @@ export default function Home() {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 }

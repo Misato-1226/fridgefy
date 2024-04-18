@@ -1,5 +1,5 @@
+import { RecipeDetailType } from "@/lib/types";
 import Image from "next/image";
-import { RecipeDetailType } from "../lib/types";
 
 const RecipeDetail = ({
   recipeDetail,
