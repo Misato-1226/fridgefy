@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Header from "../components/header";
 
 export const metadata: Metadata = {
   title: "Recipe and item page",
@@ -10,5 +11,10 @@ export default function FridgeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <section>{children}</section>;
+  return (
+    <section>
+      <Header />
+      {children}
+    </section>
+  );
 }

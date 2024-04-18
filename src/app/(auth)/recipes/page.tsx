@@ -6,12 +6,12 @@ import { RecipeResultProvider } from "@/app/contexts/RecipeResult";
 
 const Recipes = () => {
   return (
-    <>
+    <div className="flex justify-center items-center">
       <RecipeResultProvider>
         <Form />
         <RecipeList />
       </RecipeResultProvider>
-    </>
+    </div>
   );
 };
 
