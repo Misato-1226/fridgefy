@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MouseEvent } from "react";
+import { MdDeleteForever } from "react-icons/md";
 
 type ItemType = string;
 
@@ -20,24 +21,33 @@ const Fridge = () => {
     setItems(updatedItems);
   };
   return (
-    <>
-      <form>
+    <div className="rounded-md w-1/4 p-3 h-full border-2 border-slate-300">
+      <p className="text-center">My fridge</p>
+      <form className="p-2 flex justify-center items-center">
         <input
           type="text"
           placeholder="search"
           onChange={(e) => setSearch(e.target.value)}
+          className="border-2 border-inherit"
         />
-        <button type="submit" onClick={handleAdd}>
+        <button
+          type="submit"
+          onClick={handleAdd}
+          className="py-2 px-6 rounded-lg text-sm font-medium bg-lime-300 text-teal-800"
+        >
           add
         </button>
       </form>
       {items.map((item, index) => (
-        <div key={index}>
+        <div key={index} className="flex">
           <span>{item}</span>
-          <button onClick={() => handleDelete(index)}>delete</button>
+          <MdDeleteForever
+            onClick={() => handleDelete(index)}
+            className="size-8"
+          />
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

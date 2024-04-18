@@ -35,24 +35,27 @@ const Form = () => {
   };
 
   return (
-    <form>
-      <input
-        type="text"
-        placeholder="Search recipes"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={getRecipe}>search</button>
-      <p>Search by ingredients</p>
-
-      {arr.map((ingredient, index) => (
-        <IngredientCheckbox
-          key={index}
-          ingredient={ingredient}
-          handleCheckboxChange={handleCheckboxChange}
+    <div className="w-100">
+      <form className="mx-auto w-80 h-full">
+        <input
+          type="text"
+          placeholder="Search recipes"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
-      ))}
-    </form>
+        <button onClick={getRecipe}>search</button>
+        <p>Search by ingredients</p>
+        <div className="grid grid-cols-4">
+          {arr.map((ingredient, index) => (
+            <IngredientCheckbox
+              key={index}
+              ingredient={ingredient}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+          ))}
+        </div>
+      </form>
+    </div>
   );
 };
 

@@ -6,7 +6,7 @@ import { RecipeResultProvider } from "@/app/contexts/RecipeResult";
 
 const Recipes = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div>
       <RecipeResultProvider>
         <Form />
         <RecipeList />

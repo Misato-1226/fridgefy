@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "../components/header";
+import Fridge from "../components/fridge";
 
 export const metadata: Metadata = {
   title: "Recipe and item page",
@@ -14,7 +15,10 @@ export default function FridgeLayout({
   return (
     <section>
       <Header />
-      {children}
+      <div className="p-3 flex">
+        <Fridge />
+        <div className="mx-auto">{children}</div>
+      </div>
     </section>
   );
 }
