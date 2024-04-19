@@ -19,8 +19,8 @@ const RecipeDetail = ({
         height={400}
         alt="recipe image"
       />
-      <p>Ready In Minutes: {recipeDetail.readyInMinutes}</p>
-      <a href={recipeDetail.spoonacularSourceUrl}>
+      <p className="text-lg">Ready In Minutes: {recipeDetail.readyInMinutes}</p>
+      <a href={recipeDetail.spoonacularSourceUrl} className="text-lg">
         More Detail:{" "}
         <span className="underline">{recipeDetail.spoonacularSourceUrl}</span>
       </a>
