@@ -21,9 +21,9 @@ const Fridge = () => {
     setItems(updatedItems);
   };
   return (
-    <div className="rounded-md w-1/4 p-3 h-full border-2 border-slate-300">
+    <div className="rounded-md p-3 h-full border-2 border-slate-300 w-3/12">
       <p className="text-center">My fridge</p>
-      <form className="p-2 flex justify-center items-center">
+      <form className="p-2 flex justify-center items-center w-full">
         <input
           type="text"
           placeholder="search"

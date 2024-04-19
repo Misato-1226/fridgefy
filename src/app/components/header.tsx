@@ -18,7 +18,7 @@ const Header = () => {
       <form action={authenticateSignOut}>
         <button
           type="submit"
-          className="py-2.5 px-6 rounded-lg text-sm font-medium bg-white border-2 border-lime-300 text-teal-800 hover:border-lime-200 hover:text-slate-300"
+          className="py-2.5 px-6 rounded-lg text-sm font-medium bg-white border-2 border-lime-300 text-teal-800 hover:border-lime-200 hover:text-slate-400"
         >
           Logout
         </button>

@@ -1,4 +1,3 @@
-//修正後
 import { RecipeResultContext } from "@/app/contexts/RecipeResult";
 import { ChangeEvent, MouseEvent, useContext, useState } from "react";
 import IngredientCheckbox from "./checkbox";
@@ -9,8 +8,8 @@ const Form = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
   const Recipe = useContext(RecipeResultContext);
 
-  // array for testing
-  const arr = ["tomato", "onion", "cheese"];
+  // items array for just testing (get a items data from db??)
+  const arr = ["tomato", "onion", "cheese", "olive oil", "milk", "pork"];
 
   const getRecipe = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -36,21 +35,24 @@ const Form = () => {
 
   return (
     <div className="w-100">
-      <form className="mx-auto w-80 h-full">
+      <form className="mb-3 flex justify-center">
         <input
           type="text"
           placeholder="Search recipes"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          className="border border-slate-300"
         />
         <button
           onClick={getRecipe}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-slate-400  text-white font-bold py-1 px-4 rounded"
         >
           search
         </button>
-        <p>Search by ingredients</p>
-        <div className="grid grid-cols-4">
+      </form>
+      <div className="p-3 border-2 border-slate-400 flex flex-col justify-center">
+        <p className="text-center">Search by ingredients</p>
+        <div className="grid grid-cols-4 place-items-center">
           {arr.map((ingredient, index) => (
             <IngredientCheckbox
               key={index}
@@ -59,7 +61,7 @@ const Form = () => {
             />
           ))}
         </div>
-      </form>
+      </div>
     </div>
   );
 };
