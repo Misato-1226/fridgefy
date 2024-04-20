@@ -1,5 +1,11 @@
 import { RecipeResultContext } from "@/app/contexts/RecipeResult";
-import { ChangeEvent, MouseEvent, useContext, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import IngredientCheckbox from "./checkbox";
 import { getRecipes } from "@/lib/spoonacular";
 
@@ -11,8 +17,10 @@ const Form = () => {
   // items array for just testing (get a items data from db??)
   const arr = ["tomato", "onion", "cheese", "olive oil", "milk", "pork"];
 
-  const getRecipe = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const getRecipe = async (e?: MouseEvent<HTMLButtonElement>) => {
+    if (e) {
+      e.preventDefault();
+    }
     try {
       const ingredientsToString = selectedIngredients.join(",");
       const response = await getRecipes(query, ingredientsToString);
@@ -21,6 +29,10 @@ const Form = () => {
       console.error("Error fetching data:", error);
     }
   };
+
+  useEffect(() => {
+    getRecipe();
+  }, []);
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;

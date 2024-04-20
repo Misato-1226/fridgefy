@@ -11,14 +11,16 @@ const RecipeDetail = ({
   }
 
   return (
-    <div>
+    <div className="grid justify-items-center content-start">
       <h1 className="text-2xl">{recipeDetail.title}</h1>
-      <Image
-        src={recipeDetail.image}
-        width={500}
-        height={400}
-        alt="recipe image"
-      />
+      <div className="my-6">
+        <Image
+          src={recipeDetail.image}
+          width={500}
+          height={400}
+          alt="recipe image"
+        />
+      </div>
       <p className="text-lg">Ready In Minutes: {recipeDetail.readyInMinutes}</p>
       <a href={recipeDetail.spoonacularSourceUrl} className="text-lg">
         More Detail:{" "}
