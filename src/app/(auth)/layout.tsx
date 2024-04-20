@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Header from "../components/header";
-import Fridge from "../components/fridge";
+import Fridge from "../components/myFridge";
 
 export const metadata: Metadata = {
   title: "Recipe and item page",

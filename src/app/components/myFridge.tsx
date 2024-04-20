@@ -6,7 +6,7 @@ import { MdDeleteForever } from "react-icons/md";
 
 type ItemType = string;
 
-const Fridge = () => {
+const MyFridge = () => {
   const [items, setItems] = useState<ItemType[]>([]);
   const [search, setSearch] = useState("");
 
@@ -51,4 +51,4 @@ const Fridge = () => {
   );
 };
 
-export default Fridge;
+export default MyFridge;
