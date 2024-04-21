@@ -67,7 +67,7 @@ const MyFridge = () => {
             <p className="text-center">My Fridge</p>
             <div>
                 <label htmlFor="apiToggle">
-                    Use Spoonacular API
+                Use Advance Search (Use only if its neccessary)
                     <input
                         type="checkbox"
                         checked={useAPI}
