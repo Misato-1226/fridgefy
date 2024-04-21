@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "./firebaseConfig"; // Asegúrate de que importas db correctamente de tu configuración de Firebase
 /*
 export const addRecipe = async (recipe) => {
@@ -36,6 +38,9 @@ export const addRecipe = async (recipe) => {
   try {
     const docRef = await addDoc(collection(db, "Recipes"), {
       title: recipe.title,
+      image: recipe.image,
+      instructions: recipe.instructions,
+      ingredients: recipe.ingredients,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

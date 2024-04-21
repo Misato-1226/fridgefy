@@ -8,7 +8,24 @@ const RecipeItem = ({ recipeItem }: { recipeItem: any }) => {
   const handleAddRecipe = async () => {
     try {
       const response = await getRecipeDetail(recipeItem.id);
-      const recipeId = await addRecipe(response);
+
+      const ingredientsData = response.extendedIngredients.map(
+        (ingredient) => ({
+          name: ingredient.name,
+          amount: ingredient.amount + ingredient.unit,
+        })
+      );
+      //recipe info for sending database
+      const recipeData = {
+        title: response.title,
+        image: response.image,
+        instructions: response.instructions,
+        ingredients: ingredientsData,
+      };
+      const recipeId = await addRecipe(recipeData);
+
+      console.log(recipeData.ingredients);
+
       console.log("New recipe added with ID:", recipeId);
     } catch (error) {
       console.error("Error adding recipe:", error);
