@@ -1,7 +1,7 @@
 import { RecipeDetailType } from "@/lib/types";
 import Image from "next/image";
 
-const RecipeDetail = ({
+const cookDetail = ({
   recipeDetail,
 }: {
   recipeDetail: RecipeDetailType | undefined;
@@ -30,4 +30,4 @@ const RecipeDetail = ({
   );
 };
 
-export default RecipeDetail;
+export default cookDetail;

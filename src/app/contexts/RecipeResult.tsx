@@ -1,14 +1,8 @@
+import { Recipe } from "@/lib/types";
 import { createContext, useState } from "react";
 
 type Props = {
   children: React.ReactNode;
-};
-
-export type Recipe = {
-  id: number;
-  title: string;
-  image: string;
-  imageType: string;
 };
 
 type ContextState = {

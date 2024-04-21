@@ -1,6 +1,7 @@
 "use client";
 
-import RecipeDetail from "@/app/components/recipeDetail";
+import CookDetail from "@/app/components/cookDetail";
+
 import { getRecipeDetail } from "@/lib/spoonacular";
 import { RecipeDetailType } from "@/lib/types";
 import { useEffect, useState } from "react";
@@ -28,7 +29,7 @@ const DetailPage = ({ params }: RecipeDetailPageProps) => {
     fetchApi();
   }, [params.id]);
 
-  return <RecipeDetail recipeDetail={recipeDetail} />;
+  return <CookDetail recipeDetail={recipeDetail} />;
 };
 
 export default DetailPage;

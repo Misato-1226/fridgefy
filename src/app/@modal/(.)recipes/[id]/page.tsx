@@ -2,7 +2,7 @@
 
 import { Modal } from "./modal";
 
-import RecipeDetail from "@/app/components/recipeDetail";
+import RecipeDetail from "@/app/components/cookDetail";
 import { getRecipeDetail } from "@/lib/spoonacular";
 import { RecipeDetailType } from "@/lib/types";
 import { useEffect, useState } from "react";

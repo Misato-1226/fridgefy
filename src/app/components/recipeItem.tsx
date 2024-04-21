@@ -1,7 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
+import { addRecipe } from "../../firebase.js";
+import { getRecipeDetail } from "@/lib/spoonacular";
 
+//それぞれの詳細情報を取得。そしてボタンが押されたら、それをデータベースに送る。
 const RecipeItem = ({ recipeItem }: { recipeItem: any }) => {
+  const handleAddRecipe = async () => {
+    try {
+      const response = await getRecipeDetail(recipeItem.id);
+
+      const ingredientsData = response.extendedIngredients.map(
+        (ingredient) => ({
+          name: ingredient.name,
+          amount: ingredient.amount + ingredient.unit,
+        })
+      );
+      //recipe info for sending database
+      const recipeData = {
+        title: response.title,
+        image: response.image,
+        instructions: response.instructions,
+        ingredients: ingredientsData,
+      };
+      const recipeId = await addRecipe(recipeData);
+
+      console.log(recipeData.ingredients);
+
+      console.log("New recipe added with ID:", recipeId);
+    } catch (error) {
+      console.error("Error adding recipe:", error);
+    }
+  };
+
   return (
     <>
       <li className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -21,25 +51,16 @@ const RecipeItem = ({ recipeItem }: { recipeItem: any }) => {
 
           <Link
             href={`/recipes/${recipeItem.id}`}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-lime-400 rounded-lg hover:bg-lime-500 "
+            className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center text-white bg-lime-400 rounded-lg hover:bg-lime-500 "
           >
             More
-            <svg
-              className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
           </Link>
+          <button
+            onClick={handleAddRecipe}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-lime-400 rounded-lg hover:bg-lime-500 "
+          >
+            Add
+          </button>
         </div>
       </li>
     </>
