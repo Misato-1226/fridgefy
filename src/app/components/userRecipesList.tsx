@@ -28,31 +28,29 @@ const UserRecipesList = () => {
 
   return (
     <div>
-      <h2 className="text-center">My Selected Recipes</h2>
+      <h2 className="text-center text-3xl mb-8">My Recipes</h2>
       {userRecipes.map((recipe, index) => (
-        <div
-          key={index}
-          className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-        >
-          <Link
-            href={`/recipes/${recipe.id}`}
-            className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center text-white rounded-lg "
-          >
-            <Image
-              className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
-              src={recipe.image}
-              alt={recipe.title}
-              width={200}
-              height={100}
-            />
-            <div className="flex flex-col justify-between p-4 leading-normal">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {recipe.title}
-              </h5>
-
-              <p>Delete from MyRecipes</p>
-            </div>
-          </Link>
+        <div key={index} className="mb-6">
+          <div className="relative flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-2xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+            <Link
+              href={`/recipes/${recipe.id}`}
+              className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center  rounded-lg "
+            >
+              <Image
+                className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                src={recipe.image}
+                alt={recipe.title}
+                width={200}
+                height={100}
+              />
+              <div className="flex flex-col justify-between p-4 leading-normal">
+                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                  {recipe.title}
+                </h5>
+              </div>
+            </Link>
+            <p className="absolute top-1 right-3 text-slate-500 text-2xl">x</p>
+          </div>
         </div>
       ))}
     </div>

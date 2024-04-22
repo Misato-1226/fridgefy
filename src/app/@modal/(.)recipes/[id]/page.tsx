@@ -40,9 +40,9 @@ const DetailModal = ({ params }: RecipeDetailPageProps) => {
 
   return (
     <Modal>
-      <div className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full ">
-        <div className="bg-white rounded-lg w-3/4">
-          <div className="flex flex-col items-start p-4">
+      <div className="flex items-center justify-center left-0 bottom-0 w-full h-full ">
+        <div className="bg-white rounded-lg">
+          <div className="flex flex-col items-start p-3 ">
             <div className="flex justify-between items-center w-full">
               <div className="text-gray-900 font-medium text-2xl p-2">
                 {recipeDetail?.title}
