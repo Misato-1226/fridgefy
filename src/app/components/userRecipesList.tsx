@@ -4,9 +4,11 @@ import Image from "next/image";
 import { db } from "../../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import { deleteRecipe } from "@/firebase";
+import { RecipeData } from "@/lib/types";
 
 const UserRecipesList = () => {
-  const [userRecipes, setUserRecipes] = useState([]);
+  const [userRecipes, setUserRecipes] = useState<RecipeData[]>([]);
 
   useEffect(() => {
     const fetchUserRecipes = async () => {
@@ -16,8 +18,12 @@ const UserRecipesList = () => {
           id: doc.id,
           ...doc.data(),
         }));
+
+        recipes.forEach((recipe) => {
+          console.log("Recipe ID:", recipe.id);
+        });
+
         setUserRecipes(recipes);
-        console.log(recipes);
       } catch (error) {
         console.error("Error fetching recipes: ", error);
       }
@@ -26,11 +32,22 @@ const UserRecipesList = () => {
     fetchUserRecipes();
   }, []);
 
+  const handleDeleteRecipe = async (id: string | number) => {
+    try {
+      await deleteRecipe(id);
+      setUserRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe.id !== id)
+      );
+    } catch (error) {
+      console.log(`Failed to delete recipe: ${error}`);
+    }
+  };
+
   return (
     <div>
       <h2 className="text-center text-3xl mb-8">My Recipes</h2>
-      {userRecipes.map((recipe, index) => (
-        <div key={index} className="mb-6">
+      {userRecipes.map((recipe) => (
+        <div key={recipe.id} className="mb-6">
           <div className="relative flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-2xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
             <Link
               href={`/recipes/${recipe.id}`}
@@ -49,7 +66,12 @@ const UserRecipesList = () => {
                 </h5>
               </div>
             </Link>
-            <p className="absolute top-1 right-3 text-slate-500 text-2xl">x</p>
+            <button
+              onClick={() => handleDeleteRecipe(recipe.id)}
+              className="absolute top-1 right-3 text-slate-500 text-2xl"
+            >
+              x
+            </button>
           </div>
         </div>
       ))}

@@ -6,7 +6,7 @@ export type Recipe = {
 };
 
 export type RecipeData = {
-  id: number;
+  id: number | string;
   title: string;
   image: string;
   instructions: string;
