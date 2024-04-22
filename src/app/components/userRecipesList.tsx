@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { db } from "../../firebaseConfig";
-import { collection, getDocs, doc, deleteDoc } from "firebase/firestore"; // Import deleteDoc and doc
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import Link from "next/link";
 
 interface RecipeData {
   id: string;
   title: string;
   image: string;
+  recipeId: number;
 }
 
 const UserRecipesList = () => {
@@ -22,7 +23,7 @@ const UserRecipesList = () => {
           const recipeData = doc.data() as RecipeData;
           return {
             ...recipeData,
-            id: doc.id  // Ensures that the `id` of the document takes precedence
+            id: doc.id  
           };
         });
         setUserRecipes(recipes);
@@ -36,8 +37,8 @@ const UserRecipesList = () => {
 
   const handleDeleteRecipe = async (id: string) => {
     try {
-      await deleteDoc(doc(db, "Recipes", id));  // Delete the document in Firestore
-      setUserRecipes(prevRecipes => prevRecipes.filter(recipe => recipe.id !== id)); // Update local status
+      await deleteDoc(doc(db, "Recipes", id));  
+      setUserRecipes(prevRecipes => prevRecipes.filter(recipe => recipe.id !== id)); 
     } catch (error) {
       console.error("Failed to delete recipe:", error);
     }
@@ -49,7 +50,7 @@ const UserRecipesList = () => {
       {userRecipes.map((recipe) => (
         <div key={recipe.id} className="mb-6 overflow-hidden">
           <div className="relative flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md md:flex-row md:max-w-2xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <Link href={`/recipes/${recipe.id}`} className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center rounded-lg ">
+            <Link href={`/recipes/${recipe.recipeId}`} className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center rounded-lg ">
               <Image
                 className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                 src={recipe.image}
@@ -75,8 +76,6 @@ const UserRecipesList = () => {
       ))}
     </div>
   );
-
-
 };
 
 export default UserRecipesList;
