@@ -5,6 +5,15 @@ export type Recipe = {
   imageType: string;
 };
 
+export type RecipeData = {
+  id: number;
+  title: string;
+  image: string;
+  instructions: string;
+  readyInMinutes: number;
+  extendedIngredients: [];
+};
+
 export type RecipeDetailType = {
   title: string;
   image: string;
@@ -22,4 +31,10 @@ export type RecipeDetailType = {
       name: string;
     }
   ];
+};
+
+export type IngredientType = {
+  name: string;
+  amount: number;
+  unit: string;
 };

@@ -3,7 +3,7 @@
 import CookDetail from "@/app/components/cookDetail";
 
 import { getRecipeDetail } from "@/lib/spoonacular";
-import { RecipeDetailType } from "@/lib/types";
+import { RecipeData, RecipeDetailType } from "@/lib/types";
 import { useEffect, useState } from "react";
 
 type RecipeDetailPageProps = {
@@ -13,9 +13,7 @@ type RecipeDetailPageProps = {
 };
 
 const DetailPage = ({ params }: RecipeDetailPageProps) => {
-  const [recipeDetail, setRecipeDetail] = useState<
-    RecipeDetailType | undefined
-  >();
+  const [recipeDetail, setRecipeDetail] = useState<RecipeData | undefined>();
 
   useEffect(() => {
     const fetchApi = async () => {

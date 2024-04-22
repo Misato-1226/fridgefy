@@ -37,6 +37,7 @@ import { collection, addDoc } from "firebase/firestore";
 export const addRecipe = async (recipe) => {
   try {
     const docRef = await addDoc(collection(db, "Recipes"), {
+      id: recipe.id,
       title: recipe.title,
       image: recipe.image,
       instructions: recipe.instructions,

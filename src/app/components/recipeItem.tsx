@@ -17,6 +17,7 @@ const RecipeItem = ({ recipeItem }: { recipeItem: any }) => {
       );
       //recipe info for sending database
       const recipeData = {
+        id: response.id,
         title: response.title,
         image: response.image,
         instructions: response.instructions,
