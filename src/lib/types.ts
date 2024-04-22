@@ -19,6 +19,7 @@ export type RecipeDetailType = {
   image: string;
   readyInMinutes: number;
   spoonacularSourceUrl: string;
+  instructions: string; //new line
   extendedIngredients: [
     {
       measures: {
