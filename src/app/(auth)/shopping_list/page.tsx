@@ -1,5 +1,7 @@
+import UserRecipesList from "@/app/components/userRecipesList";
+
 const ShoppingList = () => {
-  return <h1>this is shopping list</h1>;
+  return <UserRecipesList />;
 };
 
 export default ShoppingList;

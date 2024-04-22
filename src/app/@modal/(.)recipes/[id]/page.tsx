@@ -4,7 +4,7 @@ import { Modal } from "./modal";
 
 import RecipeDetail from "@/app/components/cookDetail";
 import { getRecipeDetail } from "@/lib/spoonacular";
-import { RecipeDetailType } from "@/lib/types";
+import { IngredientType, RecipeData, RecipeDetailType } from "@/lib/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,9 +17,7 @@ type RecipeDetailPageProps = {
 };
 
 const DetailModal = ({ params }: RecipeDetailPageProps) => {
-  const [recipeDetail, setRecipeDetail] = useState<
-    RecipeDetailType | undefined
-  >();
+  const [recipeDetail, setRecipeDetail] = useState<RecipeData | undefined>();
 
   useEffect(() => {
     const fetchApi = async () => {
@@ -33,11 +31,18 @@ const DetailModal = ({ params }: RecipeDetailPageProps) => {
     fetchApi();
   }, [params.id]);
 
+  const ingredientsData = recipeDetail?.extendedIngredients.map(
+    (ingredient: IngredientType) => ({
+      name: ingredient.name,
+      amount: ingredient.amount + ingredient.unit,
+    })
+  );
+
   return (
     <Modal>
-      <div className="flex items-center justify-center fixed left-0 bottom-0 w-full h-full ">
-        <div className="bg-white rounded-lg w-1/2">
-          <div className="flex flex-col items-start p-4">
+      <div className="flex items-center justify-center left-0 bottom-0 w-full h-full ">
+        <div className="bg-white rounded-lg">
+          <div className="flex flex-col items-start p-3 ">
             <div className="flex justify-between items-center w-full">
               <div className="text-gray-900 font-medium text-2xl p-2">
                 {recipeDetail?.title}
@@ -52,13 +57,24 @@ const DetailModal = ({ params }: RecipeDetailPageProps) => {
                 height={400}
                 alt="recipe image"
               />
-              <p>Ready In Minutes: {recipeDetail?.readyInMinutes}</p>
-              <a href={recipeDetail?.spoonacularSourceUrl}>
-                More Detail:{" "}
-                <span className="underline">
-                  {recipeDetail?.spoonacularSourceUrl}
-                </span>
-              </a>
+              <p>
+                <span className="font-bold">Ready In Minutes:</span>{" "}
+                {recipeDetail?.readyInMinutes}
+              </p>
+              <ul>
+                <h2 className="font-bold">Ingredients</h2>
+                {ingredientsData?.map((ingredient, index) => (
+                  <li key={index}>
+                    {ingredient.name}: {ingredient.amount}
+                  </li>
+                ))}
+              </ul>
+              <h2 className="font-bold">Instructions</h2>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: recipeDetail?.instructions || "",
+                }}
+              />
             </div>
           </div>
         </div>

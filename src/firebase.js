@@ -32,11 +32,12 @@ export const addRecipe = async (recipe) => {
 };
 */
 
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, deleteDoc } from "firebase/firestore";
 
 export const addRecipe = async (recipe) => {
   try {
     const docRef = await addDoc(collection(db, "Recipes"), {
+      recipeId: recipe.id,
       title: recipe.title,
       image: recipe.image,
       instructions: recipe.instructions,
@@ -45,5 +46,16 @@ export const addRecipe = async (recipe) => {
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+};
+
+export const deleteRecipe = async (id) => {
+  try {
+    const docRef = doc(db, "Recipes", id);
+
+    await deleteDoc(docRef);
+    console.log("Document deleting with ID: ", id);
+  } catch (error) {
+    console.error(`Error deleting recipe with ID ${id}:`, error);
   }
 };
