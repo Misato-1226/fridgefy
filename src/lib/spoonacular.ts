@@ -1,9 +1,14 @@
 const apiKey = process.env.NEXT_PUBLIC_APIKEY;
 
-export const getRecipes = async (query: string, ingredients?: string) => {
+export const getRecipes = async (
+  query: string,
+  ingredients?: string,
+  cuisine?: string,
+  diet?: string
+) => {
   try {
     const response = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${query}&includeIngredients=${ingredients}&apiKey=${apiKey}`
+      `https://api.spoonacular.com/recipes/complexSearch?query=${query}&includeIngredients=${ingredients}&cuisine=${cuisine}&diet=${diet}&apiKey=${apiKey}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
