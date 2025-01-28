@@ -1,5 +1,6 @@
 "use client";
 
+import { addIngredients } from "@/firebase";
 import React, { useState, useEffect } from "react";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -58,14 +59,13 @@ const MyFridge = () => {
   const [items, setItems] = useState<Ingredient[]>([]);
   const [search, setSearch] = useState("");
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-  const [useAPI, setUseAPI] = useState(false);
 
   useEffect(() => {
     const fetchIngredients = async () => {
-      if (useAPI && search.length > 2) {
+      if (search.length > 2) {
         try {
           const response = await fetch(
-            `https://api.spoonacular.com/food/ingredients/autocomplete?query=${search}&number=10&apiKey=${API_KEY}`
+            `https://api.spoonacular.com/food/ingredients/autocomplete?query=${search}&number=20&apiKey=${API_KEY}`
           );
           const data = await response.json();
           setIngredients(
@@ -80,25 +80,18 @@ const MyFridge = () => {
           console.error("Error fetching ingredients:", error);
           setIngredients([]);
         }
-      } else if (!useAPI) {
-        setIngredients(
-          localIngredients
-            .filter((item) => item.toLowerCase().includes(search.toLowerCase()))
-            .map((item) => ({
-              id: Math.random(),
-              name: item,
-            }))
-            .slice(0, 7)
-        );
       }
     };
-
     fetchIngredients();
-  }, [search, useAPI]);
+  }, [search]);
 
-  const handleAdd = (ingredient: Ingredient) => {
-    if (!items.find((item) => item.id === ingredient.id)) {
-      setItems([...items, ingredient]);
+  const handleAddIngredient = async (ingredient: Ingredient) => {
+    try {
+      const recipeId = await addIngredients(ingredient);
+
+      console.log("New ingredient added with ID:", recipeId);
+    } catch (error) {
+      console.error("Error adding ingredient:", error);
     }
   };
 
@@ -108,10 +101,10 @@ const MyFridge = () => {
 
   return (
     <div className="rounded-md p-3 h-full border-2 border-slate-300 w-3/12">
-      <p className="text-center">My Fridge</p>
-      <div>
+      <p className="text-center">Search Ingredients</p>
+      {/* <div>
         <label htmlFor="apiToggle">
-          Use Advance Search (Use only if its neccessary)
+          Use Advance Search (Use only if its necessary)
           <input
             type="checkbox"
             checked={useAPI}
@@ -119,10 +112,10 @@ const MyFridge = () => {
             id="apiToggle"
           />
         </label>
-      </div>
+      </div> */}
       <input
         type="text"
-        placeholder="Search ingredients..."
+        placeholder="ingredients name"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="border-2 border-inherit p-1"
@@ -138,7 +131,7 @@ const MyFridge = () => {
           }}
         >
           {ingredient.name}{" "}
-          <button onClick={() => handleAdd(ingredient)}>Add</button>
+          <button onClick={() => handleAddIngredient(ingredient)}>Add</button>
         </div>
       ))}
       <ul>

@@ -2,19 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { addRecipe } from "../../firebase.js";
 import { getRecipeDetail } from "@/lib/spoonacular";
+import { IngredientType, Recipe } from "@/lib/types.js";
 
 //それぞれの詳細情報を取得。そしてボタンが押されたら、それをデータベースに送る。
-const RecipeItem = ({ recipeItem }: { recipeItem: any }) => {
+const RecipeItem = ({ recipeItem }: { recipeItem: Recipe }) => {
   const handleAddRecipe = async () => {
     try {
       const response = await getRecipeDetail(recipeItem.id);
+      console.log(response);
 
       const ingredientsData = response.extendedIngredients.map(
-        (ingredient) => ({
+        (ingredient: IngredientType) => ({
           name: ingredient.name,
           amount: ingredient.amount + ingredient.unit,
         })
       );
+
       //recipe info for sending database
       const recipeData = {
         id: response.id,
@@ -24,8 +27,6 @@ const RecipeItem = ({ recipeItem }: { recipeItem: any }) => {
         ingredients: ingredientsData,
       };
       const recipeId = await addRecipe(recipeData);
-
-      console.log(recipeData.ingredients);
 
       console.log("New recipe added with ID:", recipeId);
     } catch (error) {

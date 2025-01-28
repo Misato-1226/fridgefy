@@ -11,14 +11,17 @@ const Header = () => {
         <Link href="/recipes" className="p-2 underline">
           Recipes
         </Link>
-        <Link href="/shopping_list" className="p-2 underline">
-          Shopping List
+        <Link href="/shopping_lists" className="p-2 underline">
+          Shopping Lists
+        </Link>
+        <Link href="/my_recipes" className="p-2 underline">
+          My Recipes
         </Link>
       </div>
       <form action={authenticateSignOut}>
         <button
           type="submit"
-          className="py-2.5 px-6 rounded-lg text-sm font-medium bg-white border-2 border-lime-300 text-teal-800 hover:border-lime-200 hover:text-slate-400"
+          className="py-2.5 px-6 rounded-lg text-sm font-medium bg-white border-2 border-lime-300 text-teal-800 hover:border-lime-500"
         >
           Logout
         </button>

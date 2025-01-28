@@ -1,5 +1,4 @@
 "use server";
-
 import { db } from "./firebaseConfig"; // Asegúrate de que importas db correctamente de tu configuración de Firebase
 /*
 export const addRecipe = async (recipe) => {
@@ -52,6 +51,30 @@ export const addRecipe = async (recipe) => {
 export const deleteRecipe = async (id) => {
   try {
     const docRef = doc(db, "Recipes", id);
+
+    await deleteDoc(docRef);
+    console.log("Document deleting with ID: ", id);
+  } catch (error) {
+    console.error(`Error deleting recipe with ID ${id}:`, error);
+  }
+};
+
+export const addIngredients = async (ingredient) => {
+  try {
+    const docRef = await addDoc(collection(db, "Ingredients"), {
+      name: ingredient.name,
+      ingredientId: ingredient.id,
+    });
+    console.log("Document written with ID: ", docRef.id);
+    alert("Added in Shopping Lists");
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+export const deleteIngredients = async (id) => {
+  try {
+    const docRef = doc(db, "Ingredients", id);
 
     await deleteDoc(docRef);
     console.log("Document deleting with ID: ", id);

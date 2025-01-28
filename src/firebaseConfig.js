@@ -1,25 +1,20 @@
-// Import the functions you need from the SDKs
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getFirestore } from "firebase/firestore"; // Import Firestore
-import { getAuth } from "firebase/auth"; // Import Auth
+import { getFirestore } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBo5QXZX4IMTyCJLyuzyI1GB2PBiEi_47w",
-  authDomain: "fridgefy-c7e37.firebaseapp.com",
-  projectId: "fridgefy-c7e37",
-  storageBucket: "fridgefy-c7e37.appspot.com",
-  messagingSenderId: "382758110737",
-  appId: "1:382758110737:web:83e6f1fac51eb572ced3b0",
-  measurementId: "G-0V7995QZ8J",
+  apiKey: "AIzaSyAlMaGisyIIeUwgw22xPWNUAP_QVS9oxgw",
+  authDomain: "fridgefy-9bcbd.firebaseapp.com",
+  projectId: "fridgefy-9bcbd",
+  storageBucket: "fridgefy-9bcbd.firebasestorage.app",
+  messagingSenderId: "1042776355050",
+  appId: "1:1042776355050:web:204d07cd54d83a65dfe793",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics =
-  app.name && typeof window !== "undefined" ? getAnalytics(app) : null;
-const db = getFirestore(app); // Create Firestore instance
-const auth = getAuth(app); // Create Auth instance
-
-export { auth, db, analytics };
+// Initialize Cloud Firestore and get a reference to the service
+export const db = getFirestore(app);

@@ -8,6 +8,7 @@ import {
 } from "react";
 import IngredientCheckbox from "./checkbox";
 import { getRecipes } from "@/lib/spoonacular";
+import { log } from "console";
 
 const cuisineList = [
   "African",
@@ -109,7 +110,7 @@ const Form = () => {
           />
           <button
             onClick={getRecipe}
-            className="bg-slate-400  text-white font-bold py-1 px-4 rounded"
+            className="bg-slate-400  text-white font-bold py-1 px-4 rounded hover:bg-slate-600"
           >
             search
           </button>

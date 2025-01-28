@@ -21,7 +21,7 @@ export const getRecipes = async (
   }
 };
 
-export const getRecipeDetail = async (id: string) => {
+export const getRecipeDetail = async (id: number) => {
   try {
     const response = await fetch(
       `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
