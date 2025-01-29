@@ -67,6 +67,7 @@ const MyFridge = () => {
           const response = await fetch(
             `https://api.spoonacular.com/food/ingredients/autocomplete?query=${search}&number=20&apiKey=${API_KEY}`
           );
+          console.log(response);
           const data = await response.json();
           setIngredients(
             data
@@ -88,7 +89,7 @@ const MyFridge = () => {
   const handleAddIngredient = async (ingredient: Ingredient) => {
     try {
       const recipeId = await addIngredients(ingredient);
-
+      console.log(ingredient.name);
       console.log("New ingredient added with ID:", recipeId);
     } catch (error) {
       console.error("Error adding ingredient:", error);

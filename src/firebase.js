@@ -68,6 +68,7 @@ export const addIngredients = async (ingredient) => {
     console.log("Document written with ID: ", docRef.id);
     alert("Added in Shopping Lists");
   } catch (e) {
+    console.log(ingredient);
     console.error("Error adding document: ", e);
   }
 };
