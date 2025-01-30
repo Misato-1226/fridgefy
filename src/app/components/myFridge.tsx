@@ -65,12 +65,14 @@ const MyFridge = () => {
       if (search.length > 2) {
         try {
           const response = await fetch(
-            `https://api.spoonacular.com/food/ingredients/autocomplete?query=${search}&number=20&apiKey=${API_KEY}`
+            `https://api.spoonacular.com/food/ingredients/search?query=${search}&number=20&apiKey=${API_KEY}`
           );
-          console.log(response);
           const data = await response.json();
+          const results = data.results;
+          //console.log(results);
+
           setIngredients(
-            data
+            results
               .map((item: any) => ({
                 id: item.id,
                 name: item.name,
@@ -90,6 +92,7 @@ const MyFridge = () => {
     try {
       const recipeId = await addIngredients(ingredient);
       console.log(ingredient.name);
+      alert(`${ingredient.name} is added in shopping list!`);
       console.log("New ingredient added with ID:", recipeId);
     } catch (error) {
       console.error("Error adding ingredient:", error);
