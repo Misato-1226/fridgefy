@@ -12,7 +12,7 @@ import CloseModalButton from "@/app/components/closeModalButton";
 
 type RecipeDetailPageProps = {
   params: {
-    id: string;
+    id: number;
   };
 };
 
