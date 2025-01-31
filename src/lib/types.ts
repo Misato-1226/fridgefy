@@ -39,3 +39,8 @@ export type IngredientType = {
   amount: number;
   unit: string;
 };
+
+export type Ingredient = {
+  ingredientId: number;
+  name: string;
+};
