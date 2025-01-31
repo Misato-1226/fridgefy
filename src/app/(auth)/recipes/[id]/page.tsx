@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 type RecipeDetailPageProps = {
   params: {
-    id: string;
+    id: number;
   };
 };
 
