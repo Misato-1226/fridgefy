@@ -25,7 +25,13 @@ const ShoppingList = () => {
     };
     fetchIngredient();
   }, []);
-  return <div>page</div>;
+  return (
+    <div>
+      {ingredients.map((ingredient, index) => (
+        <h1 key={index}>a</h1>
+      ))}
+    </div>
+  );
 };
 
 export default ShoppingList;
