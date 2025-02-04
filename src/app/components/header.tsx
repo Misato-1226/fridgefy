@@ -8,13 +8,13 @@ const Header = () => {
         Fridgefy
       </Link>
       <div>
-        <Link href="/recipes" className="p-2 underline">
+        <Link href="/recipes" className="p-2 underline cursor-pointer">
           Recipes
         </Link>
-        <Link href="/shopping_lists" className="p-2 underline">
+        <Link href="/shopping_lists" className="p-2 underline cursor-pointer">
           Shopping Lists
         </Link>
-        <Link href="/my_recipes" className="p-2 underline">
+        <Link href="/my_recipes" className="p-2 underline cursor-pointer">
           My Recipes
         </Link>
       </div>

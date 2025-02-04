@@ -28,7 +28,7 @@ const ShoppingList = () => {
   return (
     <div>
       {ingredients.map((ingredient, index) => (
-        <h1 key={index}>a</h1>
+        <h1 key={index}>{ingredient.name}</h1>
       ))}
     </div>
   );
