@@ -26,10 +26,18 @@ const ShoppingList = () => {
     fetchIngredient();
   }, []);
   return (
+    //個数と単位を追加保存できるようにする
     <div>
-      {ingredients.map((ingredient, index) => (
-        <h1 key={index}>{ingredient.name}</h1>
-      ))}
+      <h2 className="text-center text-3xl mb-8">Shopping Lists</h2>
+      <div className="w-80 border">
+        <ul className="p-10">
+          {ingredients.map((ingredient, index) => (
+            <li key={index} className="list-disc text-xl mb-3">
+              {ingredient.name}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
