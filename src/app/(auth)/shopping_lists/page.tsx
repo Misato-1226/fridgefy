@@ -31,36 +31,48 @@ const ShoppingList = () => {
     setIsEdit((prev) => !prev);
   };
 
+  const units = [
+    "g",
+    "ml",
+    "bulb",
+    "bunch",
+    "spear",
+    "head",
+    "punnet",
+    "slice",
+    "piece",
+  ];
+
   return (
     //個数と単位を追加保存できるようにする
     <div>
       <h2 className="text-center text-3xl mb-8">Shopping Lists</h2>
-      <button
-        onClick={handleEdit}
-        className="border border-slate-400 rounded-md py-1 px-3"
-      >
-        edit
-      </button>
+      {!isEdit && (
+        <button
+          onClick={handleEdit}
+          className="border border-slate-400 rounded-md py-1 px-3"
+        >
+          edit
+        </button>
+      )}
+      {isEdit && <button onClick={handleEdit}>cancel</button>}
+      {isEdit && <button onClick={handleEdit}>save</button>}
       <div className="border">
         <ul className="p-10">
           {ingredients.map((ingredient, index) => (
             <li key={index} className="list-disc text-xl mb-3">
               <div className="flex justify-between gap-5">
                 {ingredient.name}
-                <div>
-                  <input className="w-16" placeholder="amount" />
-                  <select>
-                    <option>g</option>
-                    <option>ml</option>
-                    <option>bulb</option>
-                    <option>bunch</option>
-                    <option>spear</option>
-                    <option>head</option>
-                    <option>punnet</option>
-                    <option>slice</option>
-                    <option>piece</option>
-                  </select>
-                </div>
+                {isEdit && (
+                  <div>
+                    <input className="" placeholder="amount" />
+                    <select>
+                      {units.map((unit, index) => (
+                        <option key={index}>{unit}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
               </div>
             </li>
           ))}
