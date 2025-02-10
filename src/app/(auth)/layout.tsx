@@ -17,7 +17,7 @@ export default function FridgeLayout({
       <Header />
       <div className="p-3 flex">
         <Fridge />
-        <div className="mx-auto">{children}</div>
+        <div className="mx-auto w-2/5">{children}</div>
       </div>
     </section>
   );

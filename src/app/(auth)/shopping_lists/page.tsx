@@ -45,7 +45,7 @@ const ShoppingList = () => {
 
   return (
     //個数と単位を追加保存できるようにする
-    <div>
+    <div className="">
       <h2 className="text-center text-3xl mb-8">Shopping Lists</h2>
       {!isEdit && (
         <button
@@ -55,14 +55,35 @@ const ShoppingList = () => {
           edit
         </button>
       )}
-      {isEdit && <button onClick={handleEdit}>cancel</button>}
-      {isEdit && <button onClick={handleEdit}>save</button>}
+      {isEdit && (
+        <button
+          onClick={handleEdit}
+          className="border border-slate-400 rounded-md py-1 px-3"
+        >
+          cancel
+        </button>
+      )}
+      {isEdit && (
+        <button
+          onClick={handleEdit}
+          className="border border-slate-400 rounded-md py-1 px-3"
+        >
+          save
+        </button>
+      )}
       <div className="border">
         <ul className="p-10">
           {ingredients.map((ingredient, index) => (
             <li key={index} className="list-disc text-xl mb-3">
-              <div className="flex justify-between gap-5">
+              <div className="flex justify-between">
                 {ingredient.name}
+                {!isEdit && (
+                  <div>
+                    <p>
+                      200<span>g</span>
+                    </p>
+                  </div>
+                )}
                 {isEdit && (
                   <div>
                     <input className="" placeholder="amount" />
