@@ -3,6 +3,7 @@
 import { db } from "@/firebaseConfig";
 import { Ingredient } from "@/lib/types";
 import { collection, getDocs } from "firebase/firestore";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const ShoppingList = () => {
@@ -50,7 +51,7 @@ const ShoppingList = () => {
       {!isEdit && (
         <button
           onClick={handleEdit}
-          className="border border-slate-400 rounded-md py-1 px-3"
+          className="text-lg border border-3 text-white border-lime-400 bg-lime-400 rounded-md py-1 px-3"
         >
           edit
         </button>
@@ -58,7 +59,7 @@ const ShoppingList = () => {
       {isEdit && (
         <button
           onClick={handleEdit}
-          className="border border-slate-400 rounded-md py-1 px-3"
+          className="text-lg text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
         >
           cancel
         </button>
@@ -66,7 +67,7 @@ const ShoppingList = () => {
       {isEdit && (
         <button
           onClick={handleEdit}
-          className="border border-slate-400 rounded-md py-1 px-3"
+          className="text-lg ml-3 text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
         >
           save
         </button>
@@ -85,13 +86,20 @@ const ShoppingList = () => {
                   </div>
                 )}
                 {isEdit && (
-                  <div>
-                    <input className="" placeholder="amount" />
+                  <div className="flex">
+                    <input className="w-28 border" placeholder="amount" />
                     <select>
                       {units.map((unit, index) => (
                         <option key={index}>{unit}</option>
                       ))}
                     </select>
+                    <Image
+                      className="ml-5"
+                      width={30}
+                      height={30}
+                      alt="trash"
+                      src="https://img.icons8.com/?size=100&id=11705&format=png&color=000000"
+                    />
                   </div>
                 )}
               </div>
