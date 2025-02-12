@@ -74,7 +74,7 @@ export const addIngredients = async (ingredient) => {
 
 export const deleteIngredients = async (id) => {
   try {
-    const docRef = doc(db, "Ingredients", id);
+    const docRef = doc(db, "Ingredients", ingredientId);
 
     await deleteDoc(docRef);
     console.log("Document deleting with ID: ", id);

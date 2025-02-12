@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteIngredients } from "@/firebase";
 import { db } from "@/firebaseConfig";
 import { Ingredient } from "@/lib/types";
 import { collection, getDocs } from "firebase/firestore";
@@ -30,6 +31,14 @@ const ShoppingList = () => {
 
   const handleEdit = () => {
     setIsEdit((prev) => !prev);
+  };
+
+  const handleDelete = async (ingredientId: number) => {
+    try {
+      const deletedIngredient = await deleteIngredients(ingredientId);
+    } catch (error) {
+      console.log("Error with firebase", error);
+    }
   };
 
   const units = [
@@ -94,6 +103,7 @@ const ShoppingList = () => {
                       ))}
                     </select>
                     <Image
+                      onClick={() => handleDelete(ingredient.ingredientId)}
                       className="ml-5"
                       width={30}
                       height={30}
