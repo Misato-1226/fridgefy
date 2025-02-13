@@ -19,11 +19,11 @@ const UserRecipesList = () => {
     const fetchUserRecipes = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "Recipes"));
-        const recipes = querySnapshot.docs.map(doc => {
+        const recipes = querySnapshot.docs.map((doc) => {
           const recipeData = doc.data() as RecipeData;
           return {
             ...recipeData,
-            id: doc.id  
+            id: doc.id,
           };
         });
         setUserRecipes(recipes);
@@ -31,14 +31,16 @@ const UserRecipesList = () => {
         console.error("Error fetching recipes: ", error);
       }
     };
-  
+
     fetchUserRecipes();
   }, []);
 
   const handleDeleteRecipe = async (id: string) => {
     try {
-      await deleteDoc(doc(db, "Recipes", id));  
-      setUserRecipes(prevRecipes => prevRecipes.filter(recipe => recipe.id !== id)); 
+      await deleteDoc(doc(db, "Recipes", id));
+      setUserRecipes((prevRecipes) =>
+        prevRecipes.filter((recipe) => recipe.id !== id)
+      );
     } catch (error) {
       console.error("Failed to delete recipe:", error);
     }
@@ -50,7 +52,10 @@ const UserRecipesList = () => {
       {userRecipes.map((recipe) => (
         <div key={recipe.id} className="mb-6 overflow-hidden">
           <div className="relative flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-md md:flex-row md:max-w-2xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-            <Link href={`/recipes/${recipe.recipeId}`} className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center rounded-lg ">
+            <Link
+              href={`/recipes/${recipe.recipeId}`}
+              className="inline-flex items-center px-3 py-2 mx-2 text-sm font-medium text-center rounded-lg "
+            >
               <Image
                 className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                 src={recipe.image}

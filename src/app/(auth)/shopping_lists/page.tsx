@@ -17,8 +17,10 @@ const ShoppingList = () => {
         const ingredients = querySnapshot.docs.map((doc) => {
           // doc.data() is never undefined for query doc snapshots
           const ingredientsData = doc.data() as Ingredient;
+
           return {
             ...ingredientsData,
+            id: doc.id,
           };
         });
         setIngredients(ingredients);
@@ -33,9 +35,10 @@ const ShoppingList = () => {
     setIsEdit((prev) => !prev);
   };
 
-  const handleDelete = async (ingredientId: number) => {
+  const handleDelete = async (id: string) => {
     try {
-      const deletedIngredient = await deleteIngredients(ingredientId);
+      await deleteIngredients(id);
+      console.log("Ingredient deleted successfully!");
     } catch (error) {
       console.log("Error with firebase", error);
     }
@@ -103,7 +106,8 @@ const ShoppingList = () => {
                       ))}
                     </select>
                     <Image
-                      onClick={() => handleDelete(ingredient.ingredientId)}
+                      //次回：レンダリングさせたいので、この関数内でステイトを更新する
+                      onClick={() => handleDelete(ingredient.id)}
                       className="ml-5"
                       width={30}
                       height={30}

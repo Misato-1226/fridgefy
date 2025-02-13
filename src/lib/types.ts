@@ -41,6 +41,7 @@ export type IngredientType = {
 };
 
 export type Ingredient = {
+  id: string;
   ingredientId: number;
   name: string;
 };
