@@ -38,9 +38,12 @@ const ShoppingList = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteIngredients(id);
+      setIngredients((prev) =>
+        prev.filter((ingredient) => ingredient.id !== id)
+      );
       console.log("Ingredient deleted successfully!");
     } catch (error) {
-      console.log("Error with firebase", error);
+      console.error("Error with firebase", error);
     }
   };
 
