@@ -44,4 +44,17 @@ export type Ingredient = {
   id: string;
   ingredientId: number;
   name: string;
+  amount: number;
+  unit: Unit;
 };
+
+export type Unit =
+  | "g"
+  | "ml"
+  | "bulb"
+  | "bunch"
+  | "spear"
+  | "head"
+  | "punnet"
+  | "slice"
+  | "piece";

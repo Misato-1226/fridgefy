@@ -10,50 +10,6 @@ interface Ingredient {
 }
 
 const API_KEY = "28d9e505d9d04d65a92ab947db3eec00"; //your spoonacular API key
-const localIngredients = [
-  "Tomato",
-  "Cheese",
-  "Butter",
-  "Bread",
-  "Red chili flakes",
-  "Coarse salt",
-  "Cinnamon",
-  "Oregano",
-  "Paprika",
-  "Pasta",
-  "Couscous",
-  "Rice",
-  "White sugar",
-  "Brown sugar",
-  "Powdered sugar",
-  "Beef stock",
-  "Chicken stock",
-  "Celery",
-  "Eggs",
-  "Heavy cream",
-  "Milk",
-  "Bacon",
-  "Limes",
-  "Carrots",
-  "Orange juice",
-  "Ketchup",
-  "Mayonnaise",
-  "Extra virgin olive oil",
-  "Vinegar",
-  "Honey",
-  "Garlic",
-  "Shallots",
-  "Potatoes",
-  "Onions",
-  "Beans",
-  "Lentils",
-  "Chickpeas",
-  "Pork stock",
-  "Fish stock",
-  "Soy sauce",
-  "Worcestershire sauce",
-  "Tabasco sauce",
-];
 
 const MyFridge = () => {
   const [items, setItems] = useState<Ingredient[]>([]);
@@ -76,6 +32,8 @@ const MyFridge = () => {
               .map((item: any) => ({
                 id: item.id,
                 name: item.name,
+                amount: 0,
+                unit: "g",
               }))
               .slice(0, 7)
           );

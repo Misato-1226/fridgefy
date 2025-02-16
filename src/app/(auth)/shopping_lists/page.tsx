@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 const ShoppingList = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+
   useEffect(() => {
     const fetchIngredient = async () => {
       try {
