@@ -46,10 +46,11 @@ const MyFridge = () => {
     fetchIngredients();
   }, [search]);
 
+  //次回、ingredientのinterfaceを修正するz
   const handleAddIngredient = async (ingredient: Ingredient) => {
     try {
       const recipeId = await addIngredients(ingredient);
-      console.log(ingredient.name);
+      console.log(ingredient);
       alert(`${ingredient.name} is added in shopping list!`);
       console.log("New ingredient added with ID:", recipeId);
     } catch (error) {

@@ -65,6 +65,8 @@ export const addIngredients = async (ingredient) => {
     const docRef = await addDoc(collection(db, "Ingredients"), {
       name: ingredient.name,
       ingredientId: ingredient.id,
+      amount: ingredient.amount,
+      unit: ingredient.unit,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
