@@ -1,18 +1,14 @@
 "use client";
 
 import { addIngredients } from "@/firebase";
+import { Ingredient } from "@/lib/types";
 import React, { useState, useEffect } from "react";
 import { MdDeleteForever } from "react-icons/md";
-
-interface Ingredient {
-  id: number;
-  name: string;
-}
 
 const API_KEY = "28d9e505d9d04d65a92ab947db3eec00"; //your spoonacular API key
 
 const MyFridge = () => {
-  const [items, setItems] = useState<Ingredient[]>([]);
+  //const [items, setItems] = useState<Ingredient[]>([]);
   const [search, setSearch] = useState("");
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
@@ -25,12 +21,12 @@ const MyFridge = () => {
           );
           const data = await response.json();
           const results = data.results;
-          //console.log(results);
+          results.map((item: any) => console.log(item.id));
 
           setIngredients(
             results
               .map((item: any) => ({
-                id: item.id,
+                ingredientId: item.id,
                 name: item.name,
                 amount: 0,
                 unit: "g",
@@ -46,7 +42,7 @@ const MyFridge = () => {
     fetchIngredients();
   }, [search]);
 
-  //次回、ingredientのinterfaceを修正するz
+  //次回、ingredientのinterfaceを修正する
   const handleAddIngredient = async (ingredient: Ingredient) => {
     try {
       const recipeId = await addIngredients(ingredient);
@@ -58,9 +54,9 @@ const MyFridge = () => {
     }
   };
 
-  const handleDelete = (id: number) => {
-    setItems(items.filter((item) => item.id !== id));
-  };
+  // const handleDelete = (id: number) => {
+  //   setItems(items.filter((item) => item.id !== id));
+  // };
 
   return (
     <div className="rounded-md p-3 h-full border-2 border-slate-300 w-3/12">
@@ -85,19 +81,19 @@ const MyFridge = () => {
       />
       {ingredients.map((ingredient) => (
         <div
-          key={ingredient.id}
+          key={ingredient.ingredientId}
           className="flex justify-between p-1"
-          style={{
-            backgroundColor: items.find((item) => item.id === ingredient.id)
-              ? "#f0f0f0"
-              : "transparent",
-          }}
+          // style={{
+          //   backgroundColor: items.find((item) => item.id === ingredient.id)
+          //     ? "#f0f0f0"
+          //     : "transparent",
+          // }}
         >
           {ingredient.name}{" "}
           <button onClick={() => handleAddIngredient(ingredient)}>Add</button>
         </div>
       ))}
-      <ul>
+      {/* <ul>
         {items.map((item) => (
           <li
             key={item.id}
@@ -111,7 +107,7 @@ const MyFridge = () => {
             />
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };

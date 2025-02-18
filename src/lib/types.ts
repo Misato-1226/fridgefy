@@ -40,8 +40,15 @@ export type IngredientType = {
   unit: string;
 };
 
-export type Ingredient = {
+export type IngredientDatabase = {
   id: string;
+  ingredientId: number;
+  name: string;
+  amount: number;
+  unit: Unit;
+};
+
+export type Ingredient = {
   ingredientId: number;
   name: string;
   amount: number;

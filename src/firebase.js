@@ -64,7 +64,7 @@ export const addIngredients = async (ingredient) => {
   try {
     const docRef = await addDoc(collection(db, "Ingredients"), {
       name: ingredient.name,
-      ingredientId: ingredient.id,
+      ingredientId: ingredient.ingredientId,
       amount: ingredient.amount,
       unit: ingredient.unit,
     });

@@ -2,13 +2,13 @@
 
 import { deleteIngredients } from "@/firebase";
 import { db } from "@/firebaseConfig";
-import { Ingredient } from "@/lib/types";
+import { Ingredient, IngredientDatabase } from "@/lib/types";
 import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const ShoppingList = () => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+  const [ingredients, setIngredients] = useState<IngredientDatabase[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const ShoppingList = () => {
         const ingredients = querySnapshot.docs.map((doc) => {
           // doc.data() is never undefined for query doc snapshots
           const ingredientsData = doc.data() as Ingredient;
-
+          console.log(ingredientsData);
           return {
             ...ingredientsData,
             id: doc.id,
