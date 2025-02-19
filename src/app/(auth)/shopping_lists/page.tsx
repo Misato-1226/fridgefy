@@ -10,6 +10,14 @@ import React, { useEffect, useState } from "react";
 const ShoppingList = () => {
   const [ingredients, setIngredients] = useState<IngredientDatabase[]>([]);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [updateIngredient, setUpdateIngredient] = useState<
+    IngredientDatabase[]
+  >([]);
+
+  /**
+   * amountとunitの値を変更して、saveを押したら、
+   * 変更されたingredientのデータをfirebaseで変更する
+   */
 
   useEffect(() => {
     const fetchIngredient = async () => {
@@ -18,7 +26,7 @@ const ShoppingList = () => {
         const ingredients = querySnapshot.docs.map((doc) => {
           // doc.data() is never undefined for query doc snapshots
           const ingredientsData = doc.data() as Ingredient;
-          console.log(ingredientsData);
+
           return {
             ...ingredientsData,
             id: doc.id,
@@ -36,6 +44,11 @@ const ShoppingList = () => {
     setIsEdit((prev) => !prev);
   };
 
+  const handleUpdate = () => {
+    setIsEdit((prev) => !prev);
+  };
+  //値が変化したものだけ取り出して、新しい配列に追加？してそれらをfirebase内で更新？
+
   const handleDelete = async (id: string) => {
     try {
       await deleteIngredients(id);
@@ -46,6 +59,12 @@ const ShoppingList = () => {
     } catch (error) {
       console.error("Error with firebase", error);
     }
+  };
+
+  const handleValue = (id: string, field: "amount" | "unit", value: string) => {
+    setUpdateIngredient((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, field: value } : item))
+    );
   };
 
   const units = [
@@ -82,7 +101,7 @@ const ShoppingList = () => {
       )}
       {isEdit && (
         <button
-          onClick={handleEdit}
+          onClick={() => handleUpdate()}
           className="text-lg ml-3 text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
         >
           save
@@ -97,20 +116,32 @@ const ShoppingList = () => {
                 {!isEdit && (
                   <div>
                     <p>
-                      200<span>g</span>
+                      {ingredient.amount}
+                      <span>{ingredient.unit}</span>
                     </p>
                   </div>
                 )}
                 {isEdit && (
                   <div className="flex">
-                    <input className="w-28 border" placeholder="amount" />
-                    <select>
+                    <input
+                      className="w-28 border"
+                      value={ingredient.amount}
+                      onChange={(e) =>
+                        handleValue(ingredient.id, "amount", e.target.value)
+                      }
+                      placeholder="amount"
+                    />
+                    <select
+                      value={ingredient.unit}
+                      onChange={(e) =>
+                        handleValue(ingredient.id, "unit", e.target.value)
+                      }
+                    >
                       {units.map((unit, index) => (
                         <option key={index}>{unit}</option>
                       ))}
                     </select>
                     <Image
-                      //次回：レンダリングさせたいので、この関数内でステイトを更新する
                       onClick={() => handleDelete(ingredient.id)}
                       className="ml-5"
                       width={30}

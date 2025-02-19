@@ -1,5 +1,7 @@
 "use client";
 
+//次回、材料の単位と数量の保存機能を実装
+
 import { addIngredients } from "@/firebase";
 import { Ingredient } from "@/lib/types";
 import React, { useState, useEffect } from "react";
@@ -21,7 +23,8 @@ const MyFridge = () => {
           );
           const data = await response.json();
           const results = data.results;
-          results.map((item: any) => console.log(item.id));
+          //itemの型定義をする（id: 1431111　image:"food-coloring.png"　name:"yellow food color"）
+          results.map((item: any) => console.log(item));
 
           setIngredients(
             results
@@ -42,7 +45,6 @@ const MyFridge = () => {
     fetchIngredients();
   }, [search]);
 
-  //次回、ingredientのinterfaceを修正する
   const handleAddIngredient = async (ingredient: Ingredient) => {
     try {
       const recipeId = await addIngredients(ingredient);

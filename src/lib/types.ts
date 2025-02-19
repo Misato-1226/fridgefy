@@ -40,6 +40,7 @@ export type IngredientType = {
   unit: string;
 };
 
+//firebaseのユニークidがある(id)
 export type IngredientDatabase = {
   id: string;
   ingredientId: number;
@@ -55,6 +56,7 @@ export type Ingredient = {
   unit: Unit;
 };
 
+//単位のユニオン型
 export type Unit =
   | "g"
   | "ml"
