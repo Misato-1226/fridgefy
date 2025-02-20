@@ -61,10 +61,24 @@ const ShoppingList = () => {
     }
   };
 
-  const handleValue = (id: string, field: "amount" | "unit", value: string) => {
-    setUpdateIngredient((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, field: value } : item))
-    );
+  const handleValue = (
+    ingredient: IngredientDatabase,
+    field: "amount" | "unit",
+    value: string
+  ) => {
+    //値が今と異なるかどうかを判別し、異なる場合にだけstateを更新する。
+
+    const currentValue =
+      field === "amount" ? ingredient.amount.toString : ingredient.unit;
+    console.log("現在の値", currentValue);
+
+    if (value !== currentValue) {
+      setUpdateIngredient((prev) =>
+        prev.map((item) =>
+          item.id === ingredient.id ? { ...item, field: value } : item
+        )
+      );
+    }
   };
 
   const units = [
@@ -123,18 +137,19 @@ const ShoppingList = () => {
                 )}
                 {isEdit && (
                   <div className="flex">
+                    {/**次回: amountの値を入力できない。なぜ？？ */}
                     <input
                       className="w-28 border"
                       value={ingredient.amount}
                       onChange={(e) =>
-                        handleValue(ingredient.id, "amount", e.target.value)
+                        handleValue(ingredient, "amount", e.target.value)
                       }
                       placeholder="amount"
                     />
                     <select
                       value={ingredient.unit}
                       onChange={(e) =>
-                        handleValue(ingredient.id, "unit", e.target.value)
+                        handleValue(ingredient, "unit", e.target.value)
                       }
                     >
                       {units.map((unit, index) => (
