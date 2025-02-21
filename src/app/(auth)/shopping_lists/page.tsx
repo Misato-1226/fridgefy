@@ -69,13 +69,19 @@ const ShoppingList = () => {
     //値が今と異なるかどうかを判別し、異なる場合にだけstateを更新する。
 
     const currentValue =
-      field === "amount" ? ingredient.amount.toString : ingredient.unit;
+      field === "amount" ? ingredient.amount.toString() : ingredient.unit;
     console.log("現在の値", currentValue);
+
+    setIngredients((prev) =>
+      prev.map((item) =>
+        item.id === ingredient.id ? { ...item, [field]: value } : item
+      )
+    );
 
     if (value !== currentValue) {
       setUpdateIngredient((prev) =>
         prev.map((item) =>
-          item.id === ingredient.id ? { ...item, field: value } : item
+          item.id === ingredient.id ? { ...item, [field]: value } : item
         )
       );
     }
@@ -137,7 +143,7 @@ const ShoppingList = () => {
                 )}
                 {isEdit && (
                   <div className="flex">
-                    {/**次回: amountの値を入力できない。なぜ？？ */}
+                    {/**次回: amountの値を入力できない。なぜ？？ ingredient stateを変更する必要がある！ */}
                     <input
                       className="w-28 border"
                       value={ingredient.amount}
