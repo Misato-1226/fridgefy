@@ -85,3 +85,8 @@ export const deleteIngredients = async (id) => {
     console.error(`Error deleting recipe with ID ${id}:`, error);
   }
 };
+
+export const updateIngredients = async (id, field, value) => {
+  try {
+  } catch (error) {}
+};

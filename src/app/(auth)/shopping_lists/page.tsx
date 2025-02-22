@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteIngredients } from "@/firebase";
+import { deleteIngredients, updateIngredients } from "@/firebase";
 import { db } from "@/firebaseConfig";
 import { Ingredient, IngredientDatabase } from "@/lib/types";
 import { collection, getDocs } from "firebase/firestore";
@@ -44,7 +44,8 @@ const ShoppingList = () => {
     setIsEdit((prev) => !prev);
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
+    const result = await updateIngredient.map((item) => updateIngredients());
     setIsEdit((prev) => !prev);
   };
   //値が変化したものだけ取り出して、新しい配列に追加？してそれらをfirebase内で更新？
@@ -79,6 +80,7 @@ const ShoppingList = () => {
     );
 
     if (value !== currentValue) {
+      console.log("違う値だよ");
       setUpdateIngredient((prev) =>
         prev.map((item) =>
           item.id === ingredient.id ? { ...item, [field]: value } : item
@@ -143,7 +145,7 @@ const ShoppingList = () => {
                 )}
                 {isEdit && (
                   <div className="flex">
-                    {/**次回: amountの値を入力できない。なぜ？？ ingredient stateを変更する必要がある！ */}
+                    {/**次回: 入力した値をfirebaseで更新できるようにする */}
                     <input
                       className="w-28 border"
                       value={ingredient.amount}
