@@ -1,7 +1,13 @@
 "use server";
 import { db } from "./firebaseConfig"; // Asegúrate de que importas db correctamente de tu configuración de Firebase
 
-import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 /*
 export const addRecipe = async (recipe) => {
@@ -82,11 +88,21 @@ export const deleteIngredients = async (id) => {
     await deleteDoc(docRef);
     console.log("Document deleting with ID: ", id);
   } catch (error) {
-    console.error(`Error deleting recipe with ID ${id}:`, error);
+    console.error(`Error deleting ingredient with ID ${id}:`, error);
   }
 };
 
-export const updateIngredients = async (id, field, value) => {
+//次回：この関数の精査（unitとamount両方更新するのか）
+export const updateIngredients = async (ingredient) => {
   try {
-  } catch (error) {}
+    const docRef = doc(db, "ingredients", ingredient.id);
+    await updateDoc(docRef, {
+      unit: ingredient.unit,
+      amount: ingredient.amount,
+    });
+
+    console.log("Document updating with ID: ", id);
+  } catch (error) {
+    console.error(`Error updating ingredient with ID ${id}:`, error);
+  }
 };

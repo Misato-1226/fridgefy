@@ -45,7 +45,9 @@ const ShoppingList = () => {
   };
 
   const handleUpdate = async () => {
-    const result = await updateIngredient.map((item) => updateIngredients());
+    const result = await Promise.all(
+      updateIngredient.map((item) => updateIngredients(item))
+    );
     setIsEdit((prev) => !prev);
   };
   //値が変化したものだけ取り出して、新しい配列に追加？してそれらをfirebase内で更新？
