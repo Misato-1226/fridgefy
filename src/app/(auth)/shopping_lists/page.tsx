@@ -49,6 +49,7 @@ const ShoppingList = () => {
       updateIngredient.map((item) => updateIngredients(item))
     );
     setIsEdit((prev) => !prev);
+    console.log(updateIngredient);
   };
   //値が変化したものだけ取り出して、新しい配列に追加？してそれらをfirebase内で更新？
 
@@ -69,23 +70,23 @@ const ShoppingList = () => {
     field: "amount" | "unit",
     value: string
   ) => {
-    //値が今と異なるかどうかを判別し、異なる場合にだけstateを更新する。
-
     const currentValue =
       field === "amount" ? ingredient.amount.toString() : ingredient.unit;
     console.log("現在の値", currentValue);
 
+    const fixedValue = field === "amount" ? Number(value) : value;
+    //インプットに入力可能にするため、値を更新
     setIngredients((prev) =>
       prev.map((item) =>
-        item.id === ingredient.id ? { ...item, [field]: value } : item
+        item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
       )
     );
-
+    //updateIngredientがそもそも空配列だから、更新されない。次回：setUpdateIngredientを修正
     if (value !== currentValue) {
       console.log("違う値だよ");
       setUpdateIngredient((prev) =>
         prev.map((item) =>
-          item.id === ingredient.id ? { ...item, [field]: value } : item
+          item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
         )
       );
     }

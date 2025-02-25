@@ -92,7 +92,7 @@ export const deleteIngredients = async (id) => {
   }
 };
 
-//次回：この関数の精査（unitとamount両方更新するのか）
+//次回：この関数の精査（unitとamount両方更新する必要があるか）
 export const updateIngredients = async (ingredient) => {
   try {
     const docRef = doc(db, "ingredients", ingredient.id);
