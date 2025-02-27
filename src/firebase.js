@@ -95,14 +95,14 @@ export const deleteIngredients = async (id) => {
 //次回：この関数の精査（unitとamount両方更新する必要があるか）
 export const updateIngredients = async (ingredient) => {
   try {
-    const docRef = doc(db, "ingredients", ingredient.id);
+    const docRef = doc(db, "Ingredients", ingredient.id);
     await updateDoc(docRef, {
       unit: ingredient.unit,
       amount: ingredient.amount,
     });
 
-    console.log("Document updating with ID: ", id);
+    console.log("Document updating with ID: ", ingredient.id);
   } catch (error) {
-    console.error(`Error updating ingredient with ID ${id}:`, error);
+    console.error(`Error updating ingredient with ID ${ingredient.id}:`, error);
   }
 };

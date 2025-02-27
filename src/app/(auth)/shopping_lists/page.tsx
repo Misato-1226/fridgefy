@@ -83,12 +83,22 @@ const ShoppingList = () => {
     );
     //updateIngredientがそもそも空配列だから、更新されない。次回：setUpdateIngredientを修正
     if (value !== currentValue) {
-      console.log("違う値だよ");
-      setUpdateIngredient((prev) =>
-        prev.map((item) =>
-          item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
-        )
-      );
+      if (updateIngredient.length === 0) {
+        console.log("初回の更新");
+        setUpdateIngredient([
+          {
+            ...ingredient,
+            [field]: fixedValue,
+          },
+        ]);
+      } else {
+        console.log("二回目以降の更新");
+        setUpdateIngredient((prev) =>
+          prev.map((item) =>
+            item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
+          )
+        );
+      }
     }
   };
 
