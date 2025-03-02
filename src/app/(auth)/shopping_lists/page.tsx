@@ -45,11 +45,13 @@ const ShoppingList = () => {
   };
 
   const handleUpdate = async () => {
+    console.log(updateIngredient);
+
     const result = await Promise.all(
       updateIngredient.map((item) => updateIngredients(item))
     );
     setIsEdit((prev) => !prev);
-    console.log(updateIngredient);
+    //console.log(updateIngredient);
   };
   //値が変化したものだけ取り出して、新しい配列に追加？してそれらをfirebase内で更新？
 
@@ -72,7 +74,7 @@ const ShoppingList = () => {
   ) => {
     const currentValue =
       field === "amount" ? ingredient.amount.toString() : ingredient.unit;
-    console.log("現在の値", currentValue);
+    //console.log("現在の値", currentValue);
 
     const fixedValue = field === "amount" ? Number(value) : value;
     //インプットに入力可能にするため、値を更新
@@ -81,10 +83,13 @@ const ShoppingList = () => {
         item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
       )
     );
-    //updateIngredientがそもそも空配列だから、更新されない。次回：setUpdateIngredientを修正
+    //次回：複数の材料をまとめて更新できないので修正
     if (value !== currentValue) {
-      if (updateIngredient.length === 0) {
-        console.log("初回の更新");
+      //初回更新時、あるいは一度も変更されていない材料を更新するとき
+      if (
+        findIngredient(ingredient.id, ingredients, "id") === -1 ||
+        updateIngredient.length === 0
+      ) {
         setUpdateIngredient([
           {
             ...ingredient,
@@ -92,14 +97,26 @@ const ShoppingList = () => {
           },
         ]);
       } else {
-        console.log("二回目以降の更新");
+        //二回目以降の更新時
+
         setUpdateIngredient((prev) =>
           prev.map((item) =>
-            item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
+            item.id === ingredient.id
+              ? { ...item, [field]: fixedValue }
+              : { ...ingredient, [field]: fixedValue }
           )
         );
       }
     }
+  };
+
+  const findIngredient = (value: string | number, arr: any, prop: any) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i][prop] === value) {
+        return i;
+      }
+    }
+    return -1;
   };
 
   const units = [
