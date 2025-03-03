@@ -76,47 +76,32 @@ const ShoppingList = () => {
       field === "amount" ? ingredient.amount.toString() : ingredient.unit;
     //console.log("現在の値", currentValue);
 
-    const fixedValue = field === "amount" ? Number(value) : value;
+    const fixedValue =
+      field === "amount" ? (isNaN(Number(value)) ? 0 : Number(value)) : value;
     //インプットに入力可能にするため、値を更新
     setIngredients((prev) =>
       prev.map((item) =>
         item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
       )
     );
-    //次回：複数の材料をまとめて更新できないので修正
-    if (value !== currentValue) {
-      //初回更新時、あるいは一度も変更されていない材料を更新するとき
-      if (
-        findIngredient(ingredient.id, ingredients, "id") === -1 ||
-        updateIngredient.length === 0
-      ) {
-        setUpdateIngredient([
-          {
-            ...ingredient,
-            [field]: fixedValue,
-          },
-        ]);
-      } else {
-        //二回目以降の更新時
 
-        setUpdateIngredient((prev) =>
-          prev.map((item) =>
-            item.id === ingredient.id
-              ? { ...item, [field]: fixedValue }
-              : { ...ingredient, [field]: fixedValue }
-          )
+    if (value !== currentValue) {
+      setUpdateIngredient((prev) => {
+        const exists = prev.some((item) => item.id === ingredient.id);
+
+        if (!exists) {
+          return [...prev, { ...ingredient, [field]: fixedValue }];
+        }
+
+        return prev.map((item) =>
+          item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
         );
-      }
+      });
     }
   };
 
-  const findIngredient = (value: string | number, arr: any, prop: any) => {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i][prop] === value) {
-        return i;
-      }
-    }
-    return -1;
+  const findIngredient = (id: string, arr: any[], prop: string) => {
+    return arr.findIndex((item) => item[prop] === id);
   };
 
   const units = [
