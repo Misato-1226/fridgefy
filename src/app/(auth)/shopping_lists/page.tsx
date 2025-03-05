@@ -72,6 +72,7 @@ const ShoppingList = () => {
     field: "amount" | "unit",
     value: string
   ) => {
+    //入力された値が、現在のingredients内の値と一致しているかどうか。
     const currentValue =
       field === "amount" ? ingredient.amount.toString() : ingredient.unit;
     //console.log("現在の値", currentValue);
@@ -86,13 +87,15 @@ const ShoppingList = () => {
     );
 
     if (value !== currentValue) {
+      //updateIngredient内の値で一致するかどうか
       setUpdateIngredient((prev) => {
         const exists = prev.some((item) => item.id === ingredient.id);
 
+        //なかった場合、updateIngredientに追加
         if (!exists) {
           return [...prev, { ...ingredient, [field]: fixedValue }];
         }
-
+        //あった場合、既存要素の値を変更
         return prev.map((item) =>
           item.id === ingredient.id ? { ...item, [field]: fixedValue } : item
         );
@@ -100,9 +103,9 @@ const ShoppingList = () => {
     }
   };
 
-  const findIngredient = (id: string, arr: any[], prop: string) => {
-    return arr.findIndex((item) => item[prop] === id);
-  };
+  // const findIngredient = (id: string, arr: any[], prop: string) => {
+  //   return arr.findIndex((item) => item[prop] === id);
+  // };
 
   const units = [
     "g",
@@ -121,29 +124,14 @@ const ShoppingList = () => {
     <div className="">
       <h2 className="text-center text-3xl mb-8">Shopping Lists</h2>
       {!isEdit && (
-        <button
+        <span
           onClick={handleEdit}
-          className="text-lg border border-3 text-white border-lime-400 bg-lime-400 rounded-md py-1 px-3"
+          className="text-lg border border-3 underline text-right"
         >
           edit
-        </button>
+        </span>
       )}
-      {isEdit && (
-        <button
-          onClick={handleEdit}
-          className="text-lg text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
-        >
-          cancel
-        </button>
-      )}
-      {isEdit && (
-        <button
-          onClick={() => handleUpdate()}
-          className="text-lg ml-3 text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
-        >
-          save
-        </button>
-      )}
+
       <div className="border">
         <ul className="p-10">
           {ingredients.map((ingredient, index) => (
@@ -194,6 +182,23 @@ const ShoppingList = () => {
           ))}
         </ul>
       </div>
+
+      {isEdit && (
+        <button
+          onClick={handleEdit}
+          className="text-lg text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
+        >
+          cancel
+        </button>
+      )}
+      {isEdit && (
+        <button
+          onClick={() => handleUpdate()}
+          className="text-lg ml-3 text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
+        >
+          save
+        </button>
+      )}
     </div>
   );
 };
