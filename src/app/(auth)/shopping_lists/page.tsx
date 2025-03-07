@@ -13,6 +13,7 @@ const ShoppingList = () => {
   const [updateIngredient, setUpdateIngredient] = useState<
     IngredientDatabase[]
   >([]);
+  const [deleteIngredient, setDeleteIngredient] = useState([]);
 
   /**
    * amountとunitの値を変更して、saveを押したら、
@@ -53,8 +54,7 @@ const ShoppingList = () => {
     setIsEdit((prev) => !prev);
     //console.log(updateIngredient);
   };
-  //値が変化したものだけ取り出して、新しい配列に追加？してそれらをfirebase内で更新？
-
+  //次回：削除する場合もsaveを押した後に処理する？
   const handleDelete = async (id: string) => {
     try {
       await deleteIngredients(id);
@@ -124,12 +124,11 @@ const ShoppingList = () => {
     <div className="">
       <h2 className="text-center text-3xl mb-8">Shopping Lists</h2>
       {!isEdit && (
-        <span
-          onClick={handleEdit}
-          className="text-lg border border-3 underline text-right"
-        >
-          edit
-        </span>
+        <div className="flex justify-end p-2">
+          <button onClick={handleEdit} className="text-xl underline text-right">
+            edit
+          </button>
+        </div>
       )}
 
       <div className="border">
@@ -182,23 +181,24 @@ const ShoppingList = () => {
           ))}
         </ul>
       </div>
-
-      {isEdit && (
-        <button
-          onClick={handleEdit}
-          className="text-lg text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
-        >
-          cancel
-        </button>
-      )}
-      {isEdit && (
-        <button
-          onClick={() => handleUpdate()}
-          className="text-lg ml-3 text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
-        >
-          save
-        </button>
-      )}
+      <div className="flex justify-end p-3">
+        {isEdit && (
+          <button
+            onClick={handleEdit}
+            className="text-lg text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
+          >
+            cancel
+          </button>
+        )}
+        {isEdit && (
+          <button
+            onClick={() => handleUpdate()}
+            className="text-lg ml-3 text-white border-lime-400 bg-lime-400 border-2 rounded-md py-1 px-3"
+          >
+            save
+          </button>
+        )}
+      </div>
     </div>
   );
 };
