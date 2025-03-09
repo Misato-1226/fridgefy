@@ -13,7 +13,7 @@ const ShoppingList = () => {
   const [updateIngredient, setUpdateIngredient] = useState<
     IngredientDatabase[]
   >([]);
-  const [deleteIngredient, setDeleteIngredient] = useState([]);
+  const [deleteIngredient, setDeleteIngredient] = useState<string[]>([]);
 
   /**
    * amountとunitの値を変更して、saveを押したら、
@@ -46,25 +46,23 @@ const ShoppingList = () => {
   };
 
   const handleUpdate = async () => {
-    console.log(updateIngredient);
-
-    const result = await Promise.all(
-      updateIngredient.map((item) => updateIngredients(item))
-    );
-    setIsEdit((prev) => !prev);
-    //console.log(updateIngredient);
-  };
-  //次回：削除する場合もsaveを押した後に処理する？
-  const handleDelete = async (id: string) => {
     try {
-      await deleteIngredients(id);
-      setIngredients((prev) =>
-        prev.filter((ingredient) => ingredient.id !== id)
+      await Promise.all(
+        updateIngredient.map((item) => updateIngredients(item))
       );
-      console.log("Ingredient deleted successfully!");
+      await Promise.all(
+        deleteIngredient.map((item) => deleteIngredients(item))
+      );
+      setIsEdit((prev) => !prev);
+      console.log("Update Ingredient Successfully!");
     } catch (error) {
-      console.error("Error with firebase", error);
+      console.error("Failed to Update Ingredient", error);
     }
+  };
+
+  const handleDelete = (id: string) => {
+    setIngredients((prev) => prev.filter((ingredient) => ingredient.id !== id));
+    setDeleteIngredient([...deleteIngredient, id]);
   };
 
   const handleValue = (
