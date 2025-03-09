@@ -131,52 +131,56 @@ const ShoppingList = () => {
 
       <div className="border">
         <ul className="p-10">
-          {ingredients.map((ingredient, index) => (
-            <li key={index} className="list-disc text-xl mb-3">
-              <div className="flex justify-between">
-                {ingredient.name}
-                {!isEdit && (
-                  <div>
-                    <p>
-                      {ingredient.amount}
-                      <span>{ingredient.unit}</span>
-                    </p>
-                  </div>
-                )}
-                {isEdit && (
-                  <div className="flex">
-                    {/**次回: 入力した値をfirebaseで更新できるようにする */}
-                    <input
-                      className="w-28 border"
-                      value={ingredient.amount}
-                      onChange={(e) =>
-                        handleValue(ingredient, "amount", e.target.value)
-                      }
-                      placeholder="amount"
-                    />
-                    <select
-                      value={ingredient.unit}
-                      onChange={(e) =>
-                        handleValue(ingredient, "unit", e.target.value)
-                      }
-                    >
-                      {units.map((unit, index) => (
-                        <option key={index}>{unit}</option>
-                      ))}
-                    </select>
-                    <Image
-                      onClick={() => handleDelete(ingredient.id)}
-                      className="ml-5"
-                      width={30}
-                      height={30}
-                      alt="trash"
-                      src="https://img.icons8.com/?size=100&id=11705&format=png&color=000000"
-                    />
-                  </div>
-                )}
-              </div>
-            </li>
-          ))}
+          {ingredients ? (
+            ingredients.map((ingredient, index) => (
+              <li key={index} className="list-disc text-xl mb-3">
+                <div className="flex justify-between">
+                  {ingredient.name}
+                  {!isEdit && (
+                    <div>
+                      <p>
+                        {ingredient.amount}
+                        <span>{ingredient.unit}</span>
+                      </p>
+                    </div>
+                  )}
+                  {isEdit && (
+                    <div className="flex">
+                      {/**次回: 入力した値をfirebaseで更新できるようにする */}
+                      <input
+                        className="w-28 border"
+                        value={ingredient.amount}
+                        onChange={(e) =>
+                          handleValue(ingredient, "amount", e.target.value)
+                        }
+                        placeholder="amount"
+                      />
+                      <select
+                        value={ingredient.unit}
+                        onChange={(e) =>
+                          handleValue(ingredient, "unit", e.target.value)
+                        }
+                      >
+                        {units.map((unit, index) => (
+                          <option key={index}>{unit}</option>
+                        ))}
+                      </select>
+                      <Image
+                        onClick={() => handleDelete(ingredient.id)}
+                        className="ml-5"
+                        width={30}
+                        height={30}
+                        alt="trash"
+                        src="https://img.icons8.com/?size=100&id=11705&format=png&color=000000"
+                      />
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))
+          ) : (
+            <p className="text-center">No Ingredient</p>
+          )}
         </ul>
       </div>
       <div className="flex justify-end p-3">
