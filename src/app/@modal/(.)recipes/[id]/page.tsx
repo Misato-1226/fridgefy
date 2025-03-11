@@ -42,22 +42,23 @@ const DetailModal = ({ params }: RecipeDetailPageProps) => {
     <Modal>
       <div className="flex items-center justify-center left-0 bottom-0 w-full h-full ">
         <div className="bg-white rounded-lg">
-          <div className="flex flex-col items-start p-3 ">
-            <div className="flex justify-between items-center w-full">
-              <div className="text-gray-900 font-medium text-2xl p-2">
-                {recipeDetail?.title}
-              </div>
+          <div className="p-3">
+            <div className="flex justify-end">
               <CloseModalButton />
             </div>
+            <h1 className="text-gray-900 text-center font-medium text-2xl p-5">
+              {recipeDetail?.title}
+            </h1>
 
-            <div className="">
+            <div className="flex flex-col items-center">
               <Image
                 src={recipeDetail?.image || ""}
                 width={500}
                 height={400}
                 alt="recipe image"
               />
-              <p>
+
+              <p className="text-left">
                 <span className="font-bold">Ready In Minutes:</span>{" "}
                 {recipeDetail?.readyInMinutes}
               </p>
