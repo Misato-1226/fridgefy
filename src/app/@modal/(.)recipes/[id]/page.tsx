@@ -40,17 +40,17 @@ const DetailModal = ({ params }: RecipeDetailPageProps) => {
 
   return (
     <Modal>
+      <div className="flex justify-end p-3">
+        <CloseModalButton />
+      </div>
       <div className="flex items-center justify-center left-0 bottom-0 w-full h-full ">
         <div className="bg-white rounded-lg">
           <div className="p-3">
-            <div className="flex justify-end">
-              <CloseModalButton />
-            </div>
             <h1 className="text-gray-900 text-center font-medium text-2xl p-5">
               {recipeDetail?.title}
             </h1>
 
-            <div className="flex flex-col items-center">
+            <div className="w-[500px]">
               <Image
                 src={recipeDetail?.image || ""}
                 width={500}
@@ -58,24 +58,26 @@ const DetailModal = ({ params }: RecipeDetailPageProps) => {
                 alt="recipe image"
               />
 
-              <p className="text-left">
+              <p className="p-3">
                 <span className="font-bold">Ready In Minutes:</span>{" "}
                 {recipeDetail?.readyInMinutes}
               </p>
-              <ul>
-                <h2 className="font-bold">Ingredients</h2>
+              <ul className="p-3 list-disc">
+                <h2 className="font-bold">Ingredients:</h2>
                 {ingredientsData?.map((ingredient, index) => (
                   <li key={index}>
                     {ingredient.name}: {ingredient.amount}
                   </li>
                 ))}
               </ul>
-              <h2 className="font-bold">Instructions</h2>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: recipeDetail?.instructions || "",
-                }}
-              />
+              <div className="p-3">
+                <h2 className="font-bold">Instructions:</h2>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: recipeDetail?.instructions || "",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
