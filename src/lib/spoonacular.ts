@@ -8,7 +8,7 @@ export const getRecipes = async (
 ) => {
   try {
     const response = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?query=${query}&includeIngredients=${ingredients}&cuisine=${cuisine}&diet=${diet}&apiKey=${apiKey}`
+      `https://api.spoonacular.com/recipes/complexSearch?query=${query}&includeIngredients=${ingredients}&cuisine=${cuisine}&diet=${diet}&number=30&apiKey=${apiKey}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
