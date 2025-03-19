@@ -10,14 +10,27 @@ const RecipeList = () => {
   //レシピを追加表示させるためのステイト
   const [loadIndex, setLoadIndex] = useState(0);
   const [isNextEmpty, setIsNextEmpty] = useState(false);
-  const [isBackEmpty, setIsBackEmpty] = useState(false);
+  const [isBackEmpty, setIsBackEmpty] = useState(true);
+
+  const handleArrow = () => {
+    //次へボタンが表示される場合
+    //戻るボタンが押されたとき
+    //レシピの数に対して表示数(loadIndex)が少ない場合
+    if (recipe?.Recipes && loadIndex + 10 >= recipe?.Recipes.length) {
+    }
+
+    //戻るボタンが表示される場合
+    //次へボタンが押されたとき
+    //loadIndexが0になったとき
+  };
 
   const handleNext = () => {
-    if (recipe?.Recipes && loadIndex > recipe?.Recipes.length) {
+    if (recipe?.Recipes && loadIndex + 10 >= recipe?.Recipes.length) {
       setIsNextEmpty(true);
     } else {
       setLoadIndex((prev) => prev + 10);
     }
+    setIsBackEmpty(false);
   };
 
   const handleBack = () => {
@@ -26,6 +39,7 @@ const RecipeList = () => {
     } else {
       setLoadIndex((prev) => prev - 10);
     }
+    setIsNextEmpty(false);
   };
 
   return (
@@ -41,17 +55,17 @@ const RecipeList = () => {
         {!isBackEmpty && (
           <button
             onClick={handleBack}
-            className="font-semibold text-6xl text-lime-300 hover:text-lime-400"
+            className="font-semibold text-4xl text-lime-300 hover:text-lime-400"
           >
-            ←<span className="text-xl font-normal">戻る</span>
+            ←<span className="ml-3 text-xl font-normal text-black">戻る</span>
           </button>
         )}
         {!isNextEmpty && (
           <button
             onClick={handleNext}
-            className="font-semibold text-6xl text-lime-300 hover:text-lime-400"
+            className="font-semibold text-4xl text-lime-300 hover:text-lime-400"
           >
-            <span className="text-xl font-normal">Next</span>→
+            <span className="mr-3 text-xl font-normal text-black">次へ</span>→
             {/* <Image
             alt="次へ"
             src="https://img.icons8.com/?size=100&id=39777&format=png&color=bef264"
